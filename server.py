@@ -5,13 +5,13 @@ import pandas as pd
 import json
 import importlib.util
 from pydantic import BaseModel
-from roadmap_visualization import RoadmapEngine
+from core.roadmap_visualization import RoadmapEngine
 import os
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-spec = importlib.util.spec_from_file_location("ragbot", "rag_core.py")
+spec = importlib.util.spec_from_file_location("ragbot", "core/rag_core.py")
 ragbot = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(ragbot)
 

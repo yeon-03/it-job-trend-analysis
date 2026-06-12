@@ -308,7 +308,7 @@ class RoadmapEngine:
             if self.adapter_path and os.path.exists(self.adapter_path):
                 # 실제 모델이 있을 경우 불러오기 (fine_tuning.py 필요)
                 try:
-                    from fine_tuning import QLoRAFineTuner
+                    from core.fine_tuning import QLoRAFineTuner
                     self._ft_model = QLoRAFineTuner.load_for_inference(self.adapter_path)
                 except ImportError:
                     self._ft_model = _FallbackModel()

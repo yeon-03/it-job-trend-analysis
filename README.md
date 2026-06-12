@@ -96,7 +96,7 @@ RAG 챗봇과 Fine-tuned LLM을 통해 **맞춤형 커리어 로드맵**을 생�
 
 ```
 📦 project/
-├── 📂 파이프라인
+├── 📂 pipeline/                     # 데이터 수집 → 분석 파이프라인
 │   ├── 01_integrate_data_v2.py      # 데이터 통합 (원티드·사람인·잡다임 → 18,225건)
 │   ├── 02_extract_dates_v5.py       # 날짜 정보 추출 및 정규화
 │   ├── 03_text_preprocessing.py     # 불용어 제거, 기술 키워드 추출, 직무 분류
@@ -104,14 +104,13 @@ RAG 챗봇과 Fine-tuned LLM을 통해 **맞춤형 커리어 로드맵**을 생�
 │   ├── 05_trend_analysis.py         # 기술 스택 월별 트렌드, 상승/하락 기술 분석
 │   ├── 06_rag_chatbot.py            # ChromaDB 벡터 DB 구축
 │   ├── 07_bert_clustering.py        # ko-sroberta 임베딩 + KMeans 클러스터링
-│   └── 08_cluster_analysis.py       # 클러스터별 특성 분석 및 시각화
+│   ├── 08_cluster_analysis.py       # 클러스터별 특성 분석 및 시각화
+│   └── company_size.py              # 기업 규모 분류 및 비교 분석
 │
-├── 📂 모델 & 서비스
+├── 📂 core/                         # 서비스 핵심 모듈
 │   ├── rag_core.py                  # RAG 핵심 로직 (검색 + 응답 생성)
 │   ├── fine_tuning.py               # Qwen2.5-0.5B QLoRA 파인튜닝
-│   ├── roadmap_visualization.py     # 로드맵 생성 엔진 (LLM + matplotlib)
-│   ├── company_size.py              # 기업 규모 분류 로직
-│   └── server.py                    # FastAPI 서버 (REST API + 정적 파일 서빙)
+│   └── roadmap_visualization.py     # 로드맵 생성 엔진 (LLM + matplotlib)
 │
 ├── 📂 static/                       # 프론트엔드 (Vanilla JS)
 │   ├── index.html
@@ -137,8 +136,10 @@ RAG 챗봇과 Fine-tuned LLM을 통해 **맞춤형 커리어 로드맵**을 생�
 │
 ├── 📂 outputs/
 │   ├── visualizations/              # 분석 시각화 이미지 (11종)
-│   └── roadmaps/                    # 생성된 커리어 로드맵 이미지
+│   ├── roadmaps/                    # 생성된 커리어 로드맵 이미지
+│   └── chatbot_image.png            # RAG 챗봇 스크린샷
 │
+├── server.py                        # FastAPI 서버 (REST API + 정적 파일 서빙)
 ├── requirements.txt
 └── README.md
 ```
@@ -187,30 +188,30 @@ uvicorn server:app --reload --port 8000
 #### 1. 데이터 파이프라인
 
 ```bash
-python 01_integrate_data_v2.py   # 데이터 통합
-python 02_extract_dates_v5.py    # 날짜 추출
-python 03_text_preprocessing.py  # 텍스트 전처리
-python 04_eda.py                 # EDA 및 시각화
-python 05_trend_analysis.py      # 트렌드 분석
+python pipeline/01_integrate_data_v2.py   # 데이터 통합
+python pipeline/02_extract_dates_v5.py    # 날짜 추출
+python pipeline/03_text_preprocessing.py  # 텍스트 전처리
+python pipeline/04_eda.py                 # EDA 및 시각화
+python pipeline/05_trend_analysis.py      # 트렌드 분석
 ```
 
 #### 2. RAG 벡터 DB 구축
 
 ```bash
-python 06_rag_chatbot.py --build
+python pipeline/06_rag_chatbot.py --build
 ```
 
 #### 3. BERT 클러스터링 (GPU 권장)
 
 ```bash
-python 07_bert_clustering.py
-python 08_cluster_analysis.py
+python pipeline/07_bert_clustering.py
+python pipeline/08_cluster_analysis.py
 ```
 
 #### 4. LLM 파인튜닝 (GPU 필수)
 
 ```bash
-python fine_tuning.py
+python core/fine_tuning.py
 ```
 
 <br>
