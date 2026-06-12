@@ -287,7 +287,7 @@ python fine_tuning.py
 
 ### RAG 채용 상담 챗봇
 
-![RAG 기반 채용 상담 챗봇 - 직무별 필수 기술 및 트렌드 분석 응답](image.png)
+![RAG 기반 채용 상담 챗봇 - 직무별 필수 기술 및 트렌드 분석 응답](outputs/chatbot_image.png)
 
 ### 커리어 로드맵 생성 예시
 
