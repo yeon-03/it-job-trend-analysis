@@ -19,6 +19,24 @@
 import pandas as pd
 from datetime import datetime
 import os
+import sys
+
+# 원본 데이터 파일 존재 확인
+required_files = [
+    'wanted_past_1year.csv',
+    'wanted_recent.csv',
+    'saramin_it_20260518.csv',
+    'jobda_it_20260518_161026.csv',
+]
+missing = [f for f in required_files if not os.path.exists(f)]
+if missing:
+    print("❌ 원본 데이터 파일을 찾을 수 없습니다:")
+    for f in missing:
+        print(f"   - {f}")
+    print("\n→ 위 파일들을 프로젝트 루트 폴더에 배치한 뒤 다시 실행하세요.")
+    print("→ 분석 결과만 확인하려면 데이터 파이프라인 없이 서버를 바로 실행하세요:")
+    print("   uvicorn server:app --reload --port 8000")
+    sys.exit(1)
 
 print("="*70)
 print("📥 Step 1-1: 데이터 통합 (원티드 2개 파일 + 사람인 + 잡다임)")
