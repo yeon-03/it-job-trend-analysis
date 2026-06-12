@@ -1,0 +1,31 @@
+﻿기술,빈도,비율(%)
+Java,2916,30.0
+AWS,2907,29.9
+Git,2620,27.0
+Python,2479,25.5
+React,2061,21.2
+CI/CD,1796,18.5
+TypeScript,1676,17.3
+Go,1673,17.2
+Spring,1566,16.1
+Docker,1432,14.7
+Kubernetes,1299,13.4
+MySQL,1097,11.3
+JavaScript,1072,11.0
+GitHub,1058,10.9
+Linux,1006,10.4
+GCP,1001,10.3
+LLM,996,10.3
+PostgreSQL,933,9.6
+Redis,889,9.2
+Kotlin,828,8.5
+Spring Boot,820,8.4
+Kafka,724,7.5
+Azure,709,7.3
+Jira,658,6.8
+REST API,641,6.6
+Vue,567,5.8
+MSA,520,5.4
+Terraform,515,5.3
+RAG,503,5.2
+MongoDB,480,4.9

@@ -1,0 +1,30 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+pydantic
+
+# Data Processing
+pandas
+numpy
+
+# Visualization
+matplotlib
+
+# Machine Learning
+scikit-learn
+torch
+transformers
+
+# NLP / Embeddings
+sentence-transformers
+umap-learn
+
+# Vector Database
+chromadb
+
+# LLM Fine-tuning
+peft
+trl
+datasets
+accelerate
+bitsandbytes

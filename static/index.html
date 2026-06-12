@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT 채용 트렌드 분석 시스템</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.1.0/dist/tabler-icons.min.css">
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="header-title">
+      IT 채용 트렌드 분석 시스템
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card active" id="mainCard" onclick="setActive(this, 'panel-main')">
+      <div class="card-icon"><i class="ti ti-home"></i></div>
+      <div class="card-title">메인 페이지</div>
+    </div>
+    <div class="card" onclick="setActive(this, 'panel-tech')">
+      <div class="card-icon"><i class="ti ti-chart-bar"></i></div>
+      <div class="card-title">트렌드 분석</div>
+    </div>
+    <div class="card" onclick="setActive(this, 'panel-company')">
+      <div class="card-icon"><i class="ti ti-building"></i></div>
+      <div class="card-title">회사 규모 별 모집 비교</div>
+    </div>
+    <div class="card" onclick="setActive(this, 'panel-period')">
+      <div class="card-icon"><i class="ti ti-calendar"></i></div>
+      <div class="card-title">월별 채용 동향</div>
+    </div>
+  </div>
+
+  <div class="grid-bottom">
+    <div class="card" onclick="setActive(this, 'panel-roadmap')">
+      <div class="card-icon"><i class="ti ti-map-2"></i></div>
+      <div class="card-title">학습 로드맵</div>
+    </div>
+    <div class="card" onclick="setActive(this, 'panel-chat')">
+      <div class="card-icon"><i class="ti ti-message-chatbot"></i></div>
+      <div class="card-title">채용 상담 챗봇</div>
+    </div>
+  </div>
+
+  <div class="nav-tabs" id="trend-tabs" style="display:none">
+    <div class="nav-tab active" onclick="switchtrendTab(this, 'tab-tech')">기술</div>
+    <div class="nav-tab" onclick="switchtrendTab(this, 'tab-job')">분야</div> 
+  </div>
+
+  <div class="nav-tabs" id="period-tabs" style="display: none;">
+    <div class="nav-tab active" onclick="switchPeriodtab(this, '백엔드')">백엔드</div>
+    <div class="nav-tab" onclick="switchPeriodtab(this, '프론트엔드')">프론트엔드</div>
+    <div class="nav-tab" onclick="switchPeriodtab(this, 'AI_ML')">AI/ML</div>
+    <div class="nav-tab" onclick="switchPeriodtab(this, 'DevOps')">DevOps</div>
+    <div class="nav-tab" onclick="switchPeriodtab(this, '데이터')">데이터</div>
+    <div class="nav-tab" onclick="switchPeriodtab(this, '모바일')">모바일</div>
+  </div>
+
+  <div class="main-content">
+    <div class="panel" id="panel-main">
+      <div class="content-title">IT 채용 트렌드 분석 시스템</div>
+      <div class="content-desc">9,714개 채용공고(2025.07~2026.03) 분석 기반 핵심 인사이트입니다. 자세한 내용은 메뉴에서 확인하세요.</div>
+
+      <div class="insight-grid">
+        <div class="insight-card">
+          <div class="ic-label">가장 빠르게 뜨는 기술</div>
+          <div class="ic-value" id="ic-tech">—</div>
+        </div>
+        <div class="insight-card">
+          <div class="ic-label">가장 빠르게 성장하는 분야</div>
+          <div class="ic-value" id="ic-job">—</div>
+        </div>
+        <div class="insight-card">
+          <div class="ic-label">규모 무관 최다 채용 직무</div>
+          <div class="ic-value" id="ic-common">—</div>
+        </div>
+        <div class="insight-card">
+          <div class="ic-label">규모별 선호차 최대 직무</div>
+          <div class="ic-value" id="ic-diff">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="panel" id="panel-tech">
+      <div class="chart-pane" id="tab-tech">
+        <div style="width:100%; max-width:920px; height:380px;">
+          <canvas id="techChart"></canvas>
+        </div>
+        <div class="reco-section">
+          <div class="reco-group">
+            <div class="reco-head reco-head-up">지금 주목할 기술</div>
+            <div class="reco-sub">공고 비중이 증가한 기술 · 신규 학습 우선순위</div>
+            <div class="reco-list" id="risingList"></div>
+          </div>
+          <div class="reco-group">
+            <div class="reco-head reco-head-base">여전히 필수인 기반 기술</div>
+            <div class="reco-sub">비중이 다소 줄었어도 다수 공고가 요구 · 기본기</div>
+            <div class="reco-list" id="baseList"></div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-pane" id="tab-job" style="display: none;">
+        <div style="width: 100%; max-width:920px; height:380px;">
+          <canvas id="jobChart"></canvas>
+        </div> 
+        <div class="reco-section">
+          <div class="reco-group">
+            <div class="reco-head reco-head-up">성장하는 분야</div>
+            <div class="reco-sub">공고 수가 증가한 분야 · 진입 고려</div>
+            <div class="reco-list" id="jobUpList"></div>
+          </div>
+          <div class="reco-group">
+            <div class="reco-head reco-head-base">규모가 큰 분야</div>
+            <div class="reco-sub">증감과 무관하게 채용 규모가 큰 분야 · 기회 다수</div>
+            <div class="reco-list" id="jobBaseList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel" id="panel-company" style="display:none;">
+      <div class="nav-tabs" id="company-tabs">
+        <div class="nav-tab active" onclick="switchCompanyTab(this, 'cpane-job')">직무별</div>
+        <div class="nav-tab" onclick="switchCompanyTab(this, 'cpane-tech')">기술별</div>
+      </div>
+      <div class="chart-pane" id="cpane-job">
+        <div style="width:100%; max-width:840px; height:360px;"><canvas id="jobSizeChart"></canvas></div>
+        <div class="reco-section">
+          <div class="reco-group">
+            <div class="reco-head reco-head-up">규모별로 선호가 갈리는 직무</div>
+            <div class="reco-sub"></div>
+            <div class="reco-list" id="jobDiffList"></div>
+          </div>
+          <div class="reco-group">
+            <div class="reco-head reco-head-base">공통 선호 직무</div>
+            <div class="reco-sub"></div>
+            <div class="reco-list" id="jobCommonList"></div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-pane" id="cpane-tech" style="display:none;">
+        <div class="nav-tabs" id="tech-cat-tabs" style="max-width:840px;">
+          <div class="nav-tab active" onclick="switchTechCat(this, '언어')">언어</div>
+          <div class="nav-tab" onclick="switchTechCat(this, '프레임워크')">프레임워크</div>
+          <div class="nav-tab" onclick="switchTechCat(this, '인프라')">인프라</div>
+          <div class="nav-tab" onclick="switchTechCat(this, 'DB')">DB</div>
+          <div class="nav-tab" onclick="switchTechCat(this, 'AI_ML')">AI/ML</div>
+        </div>
+        <div style="width:100%; max-width:840px; height:360px;"><canvas id="techSizeChart"></canvas></div>
+        <div class="reco-section">
+          <div class="reco-group">
+            <div class="reco-head reco-head-up">규모별로 선호가 갈리는 기술</div>
+            <div class="reco-sub"></div>
+            <div class="reco-list" id="techDiffList"></div>
+          </div>
+          <div class="reco-group">
+            <div class="reco-head reco-head-base">공통 선호 기술</div>
+            <div class="reco-sub"></div>
+            <div class="reco-list" id="techCommonList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel" id="panel-period" style="display: none;">
+      <div style="width:100%; max-width:920px; height:380px;">
+        <canvas id="periodChart"></canvas>
+      </div>
+    </div>
+    <div class="panel" id="panel-roadmap" style="display:none;">
+  <div class="content-title">맞춤 학습 로드맵 생성</div>
+  <div class="content-desc">조건을 선택하면 파인튜닝 모델이 맞춤 학습 로드맵을 생성합니다.</div>
+  <div class="rm-form">
+    <div class="rm-row">
+      <label class="rm-label">분야</label>
+      <select id="rm-job" class="rm-select">
+        <option>백엔드</option><option>프론트엔드</option>
+        <option>AI_ML</option><option>DevOps</option><option>풀스택</option>
+      </select>
+    </div>
+
+    <div class="rm-row">
+      <label class="rm-label">기업</label>
+      <select id="rm-company" class="rm-select">
+        <option>대기업</option><option>스타트업</option>
+      </select>
+    </div>
+
+    <div class="rm-row">
+      <label class="rm-label">경력</label>
+      <select id="rm-exp" class="rm-select">
+        <option>비전공자</option><option>전공자(재학/졸업)</option>
+        <option>1~2년차</option><option>3년차 이상</option>
+      </select>
+    </div>
+
+    <div class="rm-row">
+      <label class="rm-label">기간</label>
+      <select id="rm-period" class="rm-select">
+        <option>3개월</option><option>6개월</option><option>1년</option>
+      </select>
+    </div>
+
+    <div class="rm-row">
+      <label class="rm-label">언어</label>
+      <div class="rm-chips" id="rm-stack">
+        <button type="button" class="rm-chip" data-v="Java">Java</button>
+        <button type="button" class="rm-chip" data-v="Python">Python</button>
+        <button type="button" class="rm-chip" data-v="JavaScript">JavaScript</button>
+        <button type="button" class="rm-chip" data-v="TypeScript">TypeScript</button>
+        <button type="button" class="rm-chip" data-v="C++">C++</button>
+        <button type="button" class="rm-chip" data-v="Kotlin">Kotlin</button>
+        <button type="button" class="rm-chip" data-v="Go">Go</button>
+        <button type="button" class="rm-chip" data-v="React">React</button>
+        <button type="button" class="rm-chip" data-v="Spring Boot">Spring Boot</button>
+        <button type="button" class="rm-chip" data-v="Django">Django</button>
+        <button type="button" class="rm-chip" data-v="FastAPI">FastAPI</button>
+        <button type="button" class="rm-chip" data-v="Docker">Docker</button>
+        <button type="button" class="rm-chip" data-v="AWS">AWS</button>
+      </div>
+    </div>
+
+    <button id="rm-generate" class="rm-generate">로드맵 생성</button>
+  </div>
+
+  <div id="rm-result"></div>
+</div>
+    <div class="panel" id="panel-chat" style="display:none;">
+      <div class="content-title">채용 상담 챗봇</div>
+      <div class="content-desc">9,714개 채용공고 데이터를 기반으로 답변합니다.</div>
+      <div class="chat-presets">
+      <div class="preset-row">
+        <span class="preset-label">직무</span>
+        <button class="preset-chip job-chip" data-v="백엔드">백엔드</button>
+        <button class="preset-chip job-chip" data-v="프론트엔드">프론트엔드</button>
+        <button class="preset-chip job-chip" data-v="AI_ML">AI/ML</button>
+        <button class="preset-chip job-chip" data-v="DevOps">DevOps</button>
+      </div>
+      <div class="preset-row">
+        <span class="preset-label">궁금한 것</span>
+        <button class="preset-chip topic-chip" data-q="뭘 공부해야 해?">학습 기술</button>
+        <button class="preset-chip topic-chip" data-q="언제 지원해야 해?">지원 시기</button>
+        <button class="preset-chip topic-chip" data-q="요즘 트렌드는?">기술 트렌드</button>
+        <button class="preset-chip topic-chip" data-q="대기업이랑 스타트업 차이는?">기업 규모 별 모집 비교</button>
+      </div>
+    </div>
+      <div class="chat-box">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-row">
+          <input type="text" id="chatInput" class="chat-input"
+                placeholder="예: 백엔드 개발자 뭘 공부해야 해?">
+          <button class="chat-send" id="chatSend">전송</button>
+        </div>
+      </div>
+    </div>
+  <div class="footer">© 2026 IT Job Trend Analysis System · Team Project</div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

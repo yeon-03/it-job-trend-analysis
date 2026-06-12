@@ -1,0 +1,6 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "adapter_path": "models/roadmap_llm\\adapter",
+  "max_seq_length": 1024,
+  "usage": "from peft import PeftModel; from transformers import AutoModelForCausalLM, AutoTokenizer; tok = AutoTokenizer.from_pretrained('models/roadmap_llm\\adapter'); model = AutoModelForCausalLM.from_pretrained('Qwen/Qwen2.5-0.5B-Instruct'); model = PeftModel.from_pretrained(model, 'models/roadmap_llm\\adapter')"
+}

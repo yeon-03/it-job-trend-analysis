@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# 환경 설정
+.env
+.env.*
+*.local
+
+# 대용량 데이터 파일 (raw/processed CSV)
+data/processed/
+
+# 모델 파일 (대용량 바이너리)
+models/vector_db/
+models/roadmap_llm/adapter/adapter_model.safetensors
+models/roadmap_llm/adapter/tokenizer.json
+
+# Anaconda 프로젝트 DB
+anaconda_projects/db/
+
+# IDE / 에디터
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 로그
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints/

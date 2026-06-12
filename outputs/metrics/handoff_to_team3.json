@@ -1,0 +1,202 @@
+{
+  "generated_at": "2026-05-29T21:20:12.290193",
+  "pipeline_args": {
+    "csv": "C:\\Users\\user\\PycharmProjects\\NLP\\project\\cleaned_jobs.csv",
+    "jsonl": "C:\\Users\\user\\PycharmProjects\\NLP\\project\\wanted_nlp_data.jsonl",
+    "analysis_only": false,
+    "data_only": false,
+    "skip_analysis": false,
+    "allow_partial": false
+  },
+  "company_comparison": {
+    "meta": {
+      "total_jobs": 9696,
+      "size_counts": {
+        "스타트업/중소": 8639,
+        "대기업": 1057
+      }
+    },
+    "top_techs_per_size": {
+      "스타트업/중소": [
+        {
+          "tech": "AWS",
+          "ratio": 30.5
+        },
+        {
+          "tech": "Java",
+          "ratio": 29.0
+        },
+        {
+          "tech": "Python",
+          "ratio": 25.7
+        },
+        {
+          "tech": "React",
+          "ratio": 22.4
+        },
+        {
+          "tech": "TypeScript",
+          "ratio": 18.6
+        },
+        {
+          "tech": "CI/CD",
+          "ratio": 18.6
+        },
+        {
+          "tech": "Go",
+          "ratio": 17.4
+        },
+        {
+          "tech": "Docker",
+          "ratio": 15.5
+        },
+        {
+          "tech": "Spring",
+          "ratio": 15.4
+        },
+        {
+          "tech": "Kubernetes",
+          "ratio": 13.3
+        }
+      ],
+      "대기업": [
+        {
+          "tech": "Java",
+          "ratio": 38.5
+        },
+        {
+          "tech": "AWS",
+          "ratio": 25.4
+        },
+        {
+          "tech": "Python",
+          "ratio": 24.4
+        },
+        {
+          "tech": "Spring",
+          "ratio": 22.6
+        },
+        {
+          "tech": "CI/CD",
+          "ratio": 17.7
+        },
+        {
+          "tech": "Go",
+          "ratio": 16.3
+        },
+        {
+          "tech": "Kubernetes",
+          "ratio": 13.7
+        },
+        {
+          "tech": "React",
+          "ratio": 11.5
+        },
+        {
+          "tech": "Azure",
+          "ratio": 10.8
+        },
+        {
+          "tech": "Linux",
+          "ratio": 10.5
+        }
+      ]
+    },
+    "distinctive_techs": {
+      "스타트업/중소_우세": [
+        {
+          "tech": "TypeScript",
+          "startup_ratio": 18.6,
+          "corp_ratio": 6.4,
+          "diff": 12.2
+        },
+        {
+          "tech": "React",
+          "startup_ratio": 22.4,
+          "corp_ratio": 11.5,
+          "diff": 10.9
+        }
+      ],
+      "대기업_우세": [
+        {
+          "tech": "Java",
+          "startup_ratio": 29.0,
+          "corp_ratio": 38.5,
+          "diff": 9.5
+        }
+      ]
+    },
+    "fullstack_preference": {
+      "스타트업/중소": 2.1,
+      "대기업": 0.3
+    },
+    "job_category_distribution": {
+      "스타트업/중소": {
+        "AI_ML": 11.3,
+        "DevOps": 7.1,
+        "PM_기획": 1.0,
+        "QA": 1.1,
+        "기타": 5.8,
+        "데이터": 5.9,
+        "모바일": 3.7,
+        "백엔드": 51.1,
+        "보안": 2.0,
+        "풀스택": 2.1,
+        "프론트엔드": 8.9
+      },
+      "대기업": {
+        "AI_ML": 9.6,
+        "DevOps": 15.9,
+        "PM_기획": 3.0,
+        "QA": 1.1,
+        "기타": 3.1,
+        "데이터": 9.2,
+        "모바일": 4.0,
+        "백엔드": 44.2,
+        "보안": 6.0,
+        "풀스택": 0.3,
+        "프론트엔드": 3.7
+      }
+    }
+  },
+  "finetuned_model": {
+    "adapter_path": "models/roadmap_llm\\adapter",
+    "dataset_path": "data/finetune\\roadmap_train.jsonl",
+    "load_example": "# 3번 담당자 로드 예시\nfrom fine_tuning import QLoRAFineTuner\nft = QLoRAFineTuner.load_for_inference('C:\\Users\\user\\PycharmProjects\\NLP\\project\\models\\roadmap_llm\\adapter')\nanswer = ft.infer('백엔드 개발자 스타트업 취업 로드맵 알려줘')\nprint(answer)"
+  },
+  "artifacts": {
+    "metrics_json": "C:\\Users\\user\\PycharmProjects\\NLP\\project\\outputs\\metrics\\company_comparison_metrics.json",
+    "visualizations": [
+      "C:\\Users\\user\\PycharmProjects\\NLP\\project\\outputs\\visualizations\\03_company_tech_comparison.png",
+      "C:\\Users\\user\\PycharmProjects\\NLP\\project\\outputs\\visualizations\\04_job_category_by_size.png",
+      "C:\\Users\\user\\PycharmProjects\\NLP\\project\\outputs\\visualizations\\05_tech_heatmap_by_size.png"
+    ],
+    "analysis_csvs": [
+      "C:\\Users\\user\\PycharmProjects\\NLP\\project\\data\\analysis\\job_category_by_size.csv",
+      "C:\\Users\\user\\PycharmProjects\\NLP\\project\\data\\analysis\\tech_ratio_by_size.csv"
+    ],
+    "finetune_dataset": "data/finetune\\roadmap_train.jsonl"
+  },
+  "ui_hints": {
+    "page_2_company_comparison": {
+      "description": "스타트업/중소 vs 대기업 기술 스택 비교",
+      "key_metrics": [
+        "top_techs_per_size",
+        "distinctive_techs",
+        "fullstack_preference",
+        "job_category_distribution"
+      ],
+      "visualization_files": [
+        "C:\\Users\\user\\PycharmProjects\\NLP\\project\\outputs\\visualizations\\03_company_tech_comparison.png",
+        "C:\\Users\\user\\PycharmProjects\\NLP\\project\\outputs\\visualizations\\04_job_category_by_size.png",
+        "C:\\Users\\user\\PycharmProjects\\NLP\\project\\outputs\\visualizations\\05_tech_heatmap_by_size.png"
+      ]
+    },
+    "page_roadmap": {
+      "description": "Fine-tuned LLM 기반 학습 로드맵 생성",
+      "model_path": "models/roadmap_llm\\adapter",
+      "input_type": "직무 + 회사규모 텍스트 입력",
+      "output_type": "단계별 학습 로드맵 텍스트"
+    }
+  }
+}

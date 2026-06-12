@@ -1,0 +1,10 @@
+﻿cluster,count,top_job,job_pct,top_techs,top_size
+0,1780,백엔드,93.3,"Java, AWS, Spring, Git, MySQL",스타트업/중소
+1,1179,백엔드,73.0,"React, TypeScript, Java, Git, JavaScript",스타트업/중소
+2,868,DevOps,41.7,"AWS, CI/CD, Kubernetes, Linux, Python",스타트업/중소
+3,1026,백엔드,65.3,"AWS, Java, React, TypeScript, Git",스타트업/중소
+4,906,백엔드,52.4,"Python, LLM, PyTorch, AWS, RAG",스타트업/중소
+5,492,백엔드,54.5,"Git, Kotlin, React, Swift, Java",스타트업/중소
+6,955,백엔드,21.3,"Python, Git, Linux, Java, C#",스타트업/중소
+7,597,데이터,46.6,"Python, AWS, Airflow, Java, GCP",스타트업/중소
+8,508,DevOps,40.7,"AWS, Python, GCP, Azure, Go",스타트업/중소
